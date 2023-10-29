@@ -9,7 +9,7 @@ fun main() {
     val seats = readln().toInt()
     var cinemaSeating = Array(rows) { Array(seats) { "S" } }
 
-//    function to print the seating arrangement
+    //    function to print the seating arrangement
     fun printCinemaSeating() {
         println("Cinema:")
         // Print column numbers
@@ -27,24 +27,40 @@ fun main() {
             println()
         }
     }
-    printCinemaSeating()
 
-//    Asking the user to choose a seat and then display the ticket price
-    println("Enter a row number:")
-    val selectedRow = readln().toInt() - 1
-    println("Enter a seat number in that row:")
-    val selectedSeat = readln().toInt() - 1
-    cinemaSeating[selectedRow][selectedSeat] = "B"
+    fun buyTicket() {
+        println("Enter a row number:")
+        val selectedRow = readln().toInt() - 1
+        println("Enter a seat number in that row:")
+        val selectedSeat = readln().toInt() - 1
+        cinemaSeating[selectedRow][selectedSeat] = "B"
 
-    val ticketPrice: Int = if (rows * seats <= 60) {
-        10
-    } else {
-        val frontHalf = rows / 2
-        val selectedRowPrice = if (selectedRow < frontHalf) 10 else 8
-        selectedRowPrice
+        val ticketPrice: Int = if (rows * seats <= 60) {
+            10
+        } else {
+            val frontHalf = rows / 2
+            val selectedRowPrice = if (selectedRow < frontHalf) 10 else 8
+            selectedRowPrice
+        }
+        println("Ticket price: $$ticketPrice")
     }
-    println("Ticket price: $$ticketPrice")
-    printCinemaSeating()
 
+//    getting user input based on a menu
+    while (true) {
+        println(
+            """
+            1. Show the seats
+            2. Buy a ticket
+            0. Exit
+            """.trimIndent()
+        )
+        when (readln().toInt()) {
+            0 -> break
+            1 -> printCinemaSeating()
+            2 -> buyTicket()
+        }
+    }
 }
+
+
 
