@@ -2,12 +2,22 @@ package cinema
 
 
 fun main() {
-    //    Initializing an array to show the seating arrangement, based on user input
+    //    Initializing an array to show the seating arrangement, based on user input. Initializing variables to store information about tickets
     println("Enter the number of rows:")
     val rows = readln().toInt()
     println("Enter the number of seats in each row:")
     val seats = readln().toInt()
     var cinemaSeating = Array(rows) { Array(seats) { "S" } }
+    var totalSeats = rows * seats
+    var purchasedTickets = 0
+    var currentIncome = 0
+    var maxIncome: Int = if (rows * seats <= 60) {
+        rows * seats * 10
+    } else {
+        val frontHalf = rows / 2
+        val backHalf = rows - frontHalf
+        (frontHalf * seats * 10) + (backHalf * seats * 8)
+    }
 
     //    function to print the seating arrangement
     fun printCinemaSeating() {
@@ -42,7 +52,17 @@ fun main() {
             val selectedRowPrice = if (selectedRow < frontHalf) 10 else 8
             selectedRowPrice
         }
-        println("Ticket price: $$ticketPrice")
+        purchasedTickets += 1
+        currentIncome += ticketPrice
+        println("Ticket price: $$ticketPrice\n")
+    }
+
+    //    Prints the number of purchased tickets, percentage of purchased tickets, current income, total of all seats in theatre
+    fun showStatistics() {
+        println("Number of purchased tickets: $purchasedTickets")
+        println("Percentage: ${"%.2f".format((100.00 * purchasedTickets.toDouble()) / totalSeats.toDouble())}%")
+        println("Current income: $$currentIncome")
+        println("Total income: $$maxIncome\n")
     }
 
 //    getting user input based on a menu
@@ -51,6 +71,7 @@ fun main() {
             """
             1. Show the seats
             2. Buy a ticket
+            3. Statistics
             0. Exit
             """.trimIndent()
         )
@@ -58,9 +79,13 @@ fun main() {
             0 -> break
             1 -> printCinemaSeating()
             2 -> buyTicket()
+            3 -> showStatistics()
+            else -> println("Wrong Input!")
         }
     }
 }
+
+
 
 
 
