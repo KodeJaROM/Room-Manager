@@ -43,7 +43,17 @@ fun main() {
         val selectedRow = readln().toInt() - 1
         println("Enter a seat number in that row:")
         val selectedSeat = readln().toInt() - 1
-        cinemaSeating[selectedRow][selectedSeat] = "B"
+        try {
+            if (cinemaSeating[selectedRow][selectedSeat] == "B") {
+                println("That ticket has already been purchased!\n")
+                buyTicket()
+            } else {
+                cinemaSeating[selectedRow][selectedSeat] = "B"
+            }
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            println("Wrong Input!\n")
+            buyTicket()
+        }
 
         val ticketPrice: Int = if (rows * seats <= 60) {
             10
@@ -80,7 +90,7 @@ fun main() {
             1 -> printCinemaSeating()
             2 -> buyTicket()
             3 -> showStatistics()
-            else -> println("Wrong Input!")
+            else -> println("Wrong Input!\n")
         }
     }
 }
