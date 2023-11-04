@@ -2,7 +2,7 @@ package cinema
 
 
 fun main() {
-    //    Initializing an array to show the seating arrangement, based on user input. Initializing variables to store information about tickets
+    //    Initializing an array to show the seating arrangement based on user input. Initializing variables to store statistics
     println("Enter the number of rows:")
     val rows = readln().toInt()
     println("Enter the number of seats in each row:")
@@ -19,10 +19,10 @@ fun main() {
         (frontHalf * seats * 10) + (backHalf * seats * 8)
     }
 
-    //    function to print the seating arrangement
+    //    Function to print the seating arrangement
     fun printCinemaSeating() {
         println("Cinema:")
-        // Print column numbers
+        // Print column numbers, needs a space to align grid
         print("  ")
         for (col in 1..seats) {
             print("$col ")
@@ -38,6 +38,7 @@ fun main() {
         }
     }
 
+    //    Function to buy tickets if available
     fun buyTicket() {
         println("Enter a row number:")
         val selectedRow = readln().toInt() - 1
@@ -54,7 +55,6 @@ fun main() {
             println("Wrong Input!\n")
             buyTicket()
         }
-
         val ticketPrice: Int = if (rows * seats <= 60) {
             10
         } else {
@@ -67,7 +67,7 @@ fun main() {
         println("Ticket price: $$ticketPrice\n")
     }
 
-    //    Prints the number of purchased tickets, percentage of purchased tickets, current income, total of all seats in theatre
+    //    Prints the number of purchased tickets, percentage of purchased tickets, current income, and max possible income of all seats in theatre
     fun showStatistics() {
         println("Number of purchased tickets: $purchasedTickets")
         println("Percentage: ${"%.2f".format((100.00 * purchasedTickets.toDouble()) / totalSeats.toDouble())}%")
@@ -75,7 +75,7 @@ fun main() {
         println("Total income: $$maxIncome\n")
     }
 
-//    getting user input based on a menu
+//    Getting user input based on a menu
     while (true) {
         println(
             """
